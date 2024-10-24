@@ -6,7 +6,7 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0x000000);
+renderer.setClearColor(0xADD8E6);
 renderer.setPixelRatio(window.devicePixelRatio);
 
 renderer.shadowMap.enabled = true;
@@ -41,16 +41,26 @@ groundMesh.castShadow = false;
 groundMesh.receiveShadow = true;
 scene.add(groundMesh);
 
+// const ambientLight = new THREE.AmbientLight(0xffffff, 1); // 1 is the intensity
+// scene.add(ambientLight);
+
 const spotLight = new THREE.SpotLight(0xffffff, 3000, 100, 0.22, 1);
 spotLight.position.set(0, 25, 0);
 spotLight.castShadow = true;
 spotLight.shadow.bias = -0.0001;
 scene.add(spotLight);
 
-const loader = new GLTFLoader().setPath('public/millennium_falcon/');
+const loader = new GLTFLoader().setPath('public/2019_honda_nsx/');
 loader.load('scene.gltf', (gltf) => {
+  console.log(gltf);  
   console.log('loading model');
+
+
   const mesh = gltf.scene;
+
+    // Scale the mesh to make it larger
+    mesh.scale.set(100, 100, 100); // Adjust these values as needed (5x larger in this example)
+
 
   mesh.traverse((child) => {
     if (child.isMesh) {
